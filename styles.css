@@ -1,0 +1,177 @@
+/* Основные стили */
+body {
+    background-color: #1c1c1c; /* Темный фон */
+    color: #e0e0e0; /* Светлый текст */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #2a2a2a; /* Темнее для хедера */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.site-title {
+    font-size: 28px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: #ffcc00; /* Яркий желтый цвет */
+    font-family: 'Arial', sans-serif; /* Простой жирный шрифт */
+}
+
+.popcorn-icon {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.site-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    margin-left: 20px;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Основные стили для контейнера с фильмами */
+.movie-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.movie {
+    margin: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.movie img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.movie:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Темное затенение */
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #333; /* Темно-серый фон */
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #444;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.close {
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #ffcc00;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2, h3 {
+    color: #ffcc00; /* Заголовки яркого цвета */
+}
+
+.player {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#video-player {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+}
+
+textarea {
+    width: 100%;
+    height: 60px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+button {
+    background-color: #444;
+    color: #e0e0e0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Стили для отзывов */
+.review-section {
+    margin-top: 20px;
+}
+
+.review {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+}
+
+#reviews-list {
+    margin-bottom: 20px;
+}
+
+/* Отзывчивый дизайн для мобильных устройств */
+@media screen and (max-width: 600px) {
+    .modal-content {
+        width: 90%;
+    }
+
+    .movie img {
+        width: 150px;
+    }
+}

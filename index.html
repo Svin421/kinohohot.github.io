@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кино Сайт</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 class="site-title">
+            <img src="Popcorn_Time_logo.png" alt="Попкорн" class="popcorn-icon">
+            <a href="kinohohotynonline.com" target="_blank">Кино Хохот</a>
+        </h1>
+        <input type="text" id="search" placeholder="Поиск по названию фильмов">
+    </header>
+
+    <main>
+        <div class="movie-container">
+            <div class="movie" onclick="openModal('movie1')">
+                <img src="cover1.jpg" alt="Фильм 1">
+                <p>Фильм 1</p>
+            </div>
+            <div class="movie" onclick="openModal('movie2')">
+                <img src="cover2.jpg" alt="Фильм 2">
+                <p>Фильм 2</p>
+            </div>
+            <div class="movie" onclick="openModal('movie3')">
+                <img src="cover3.jpg" alt="Фильм 3">
+                <p>Фильм 3</p>
+            </div>
+            <div class="movie" onclick="openModal('movie4')">
+                <img src="cover4.jpg" alt="Фильм 4">
+                <p>Фильм 4</p>
+            </div>
+            <div class="movie" onclick="openModal('movie5')">
+                <img src="cover5.jpg" alt="Фильм 5">
+                <p>Фильм 5</p>
+            </div>
+            <div class="movie" onclick="openModal('movie6')">
+                <img src="cover6.jpg" alt="Фильм 6">
+                <p>Фильм 6</p>
+            </div>
+            <div class="movie" onclick="openModal('movie7')">
+                <img src="cover7.jpg" alt="Фильм 7">
+                <p>Фильм 7</p>
+            </div>
+            <div class="movie" onclick="openModal('movie8')">
+                <img src="cover8.jpg" alt="Фильм 8">
+                <p>Фильм 8</p>
+            </div>
+            <div class="movie" onclick="openModal('movie9')">
+                <img src="cover9.jpg" alt="Фильм 9">
+                <p>Фильм 9</p>
+            </div>
+            <div class="movie" onclick="openModal('movie10')">
+                <img src="cover10.jpg" alt="Фильм 10">
+                <p>Фильм 10</p>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-image" src="" alt="Обложка фильма">
+            <p id="modal-description"></p>
+            <div class="player">
+                <video id="video-player" width="400" controls>
+                    <source id="video-source" src="" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </div>
+            <div class="review-section">
+                <h3>Отзывы:</h3>
+                <div id="reviews-list"></div>
+                <textarea id="review-input" placeholder="Напишите ваш отзыв..."></textarea>
+                <button onclick="submitReview()">Отправить отзыв</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
