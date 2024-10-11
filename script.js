@@ -1,93 +1,81 @@
-function openModal(movie) {
-    const modal = document.getElementById('modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalImage = document.getElementById('modal-image');
-    const modalDescription = document.getElementById('modal-description');
-    const videoSource = document.getElementById('video-source');
-    const videoPlayer = document.getElementById('video-player');
-    const reviewsList = document.getElementById('reviews-list');
-
+// Открытие модального окна и загрузка фильма
+function openModal(movieId) {
+    document.getElementById('modal').style.display = 'block';
     const movies = {
-        movie1: {
-            title: "Рик и Морти",
-            description: "",
-            image: "rik1.jpg",
-            video: "Рик и Морти.mp4"  // Убедитесь, что файл существует
-        },
-        movie2: {
-            title: "Блэйд",
-            description: "",
-            image: "Blade.jpg",
-            video: "1080.mp4"  // Убедитесь, что файл существует
-        },
-        movie3: {
-            title: "Дэдпул 3",
-            description: "",
-            image: "дедпул.jpg",
-            video: "dyedpul-s-loganom.mp4"  // Убедитесь, что файл существует
-        },
-        movie4: {
-            title: "Звёздные войны: Эпизод 1",
-            description: "",
-            image: "звездные.jpg",
-            video: "Звёздные_войны_Эпизод_I_Скрытая_угроза.mp4"  // Убедитесь, что файл существует
-        }
+        movie1: { title: 'Фильм 1', image: 'cover1.jpg', description: 'Описание фильма 1', videoLink: 'https://example.com/movie1' },
+        movie2: { title: 'Фильм 2', image: 'cover2.jpg', description: 'Описание фильма 2', videoLink: 'https://example.com/movie2' },
+        movie3: { title: 'Фильм 3', image: 'cover3.jpg', description: 'Описание фильма 3', videoLink: 'https://example.com/movie3' },
+        movie4: { title: 'Фильм 4', image: 'cover4.jpg', description: 'Описание фильма 4', videoLink: 'https://example.com/movie4' },
+        movie5: { title: 'Фильм 5', image: 'cover5.jpg', description: 'Описание фильма 5', videoLink: 'https://example.com/movie5' },
+        movie6: { title: 'Фильм 6', image: 'cover6.jpg', description: 'Описание фильма 6', videoLink: 'https://example.com/movie6' },
+        movie7: { title: 'Фильм 7', image: 'cover7.jpg', description: 'Описание фильма 7', videoLink: 'https://example.com/movie7' },
+        movie8: { title: 'Фильм 8', image: 'cover8.jpg', description: 'Описание фильма 8', videoLink: 'https://example.com/movie8' },
+        movie9: { title: 'Фильм 9', image: 'cover9.jpg', description: 'Описание фильма 9', videoLink: 'https://example.com/movie9' },
+        movie10: { title: 'Фильм 10', image: 'cover10.jpg', description: 'Описание фильма 10', videoLink: 'https://example.com/movie10' }
     };
 
-    const selectedMovie = movies[movie];
-    
-    modalTitle.textContent = selectedMovie.title;
-    modalImage.src = selectedMovie.image;
-    modalDescription.textContent = selectedMovie.description;
-    videoSource.src = selectedMovie.video;
-    
-    videoPlayer.load(); // Загружаем видео
-    modal.style.display = "block";
-    reviewsList.innerHTML = '';
+    const movie = movies[movieId];
+    if (movie) {
+        document.getElementById('modal-title').textContent = movie.title;
+        document.getElementById('modal-image').src = movie.image;
+        document.getElementById('modal-description').textContent = movie.description;
+        document.getElementById('video-link').href = movie.videoLink;  // Устанавливаем ссылку на видео
+        document.getElementById('video-link').textContent = `Смотреть ${movie.title}`;
+        
+        loadReviews(movieId);
+    }
 }
 
+// Закрытие модального окна
 function closeModal() {
-    document.getElementById('modal').style.display = "none";
-    document.getElementById('nickname').value = '';
-    document.getElementById('review-text').value = '';
+    document.getElementById('modal').style.display = 'none';
 }
 
-function loadVideo(event) {
-    const videoPlayer = document.getElementById('video-player');
-    const file = event.target.files[0]; // Получаем файл из выбранного
-
-    if (file) {
-        const fileURL = URL.createObjectURL(file); // Создаем URL для видеофайла
-        videoPlayer.src = fileURL; // Устанавливаем загруженное видео в плеер
-        videoPlayer.play(); // Автоматически воспроизводим видео
-    }
-}
-
+// Отправка отзыва
 function submitReview() {
-    const nickname = document.getElementById('nickname').value;
-    const reviewText = document.getElementById('review-text').value;
+    const movieTitle = document.getElementById('modal-title').textContent;
+    const reviewName = document.getElementById('review-name').value;
+    const reviewText = document.getElementById('review-input').value;
 
-    if (nickname.trim() === "" || reviewText.trim() === "") {
-        alert("Пожалуйста, заполните все поля.");
-        return;
+    if (reviewName && reviewText) {
+        const review = { name: reviewName, text: reviewText };
+
+        let reviews = JSON.parse(localStorage.getItem(movieTitle)) || [];
+        reviews.push(review);
+        localStorage.setItem(movieTitle, JSON.stringify(reviews));
+
+        document.getElementById('review-name').value = '';
+        document.getElementById('review-input').value = '';
+
+        loadReviews(movieTitle);
+    } else {
+        alert('Введите имя и отзыв.');
     }
-
-    const reviewList = document.getElementById('reviews-list');
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
-    newReview.innerHTML = `
-        <strong>${nickname}</strong>: ${reviewText}
-        <button onclick="deleteReview(this)">Удалить</button>
-    `;
-    reviewList.appendChild(newReview);
-
-    document.getElementById('nickname').value = '';
-    document.getElementById('review-text').value = '';
 }
 
-function deleteReview(button) {
-    const review = button.parentNode; // Получаем элемент отзыва
-    review.remove(); // Удаляем его из DOM
+// Загрузка отзывов из localStorage
+function loadReviews(movieId) {
+    const movieTitle = document.getElementById('modal-title').textContent;
+    const reviews = JSON.parse(localStorage.getItem(movieTitle)) || [];
+    const modalReviews = document.getElementById('modal-reviews');
+
+    modalReviews.innerHTML = '';
+
+    reviews.forEach((review, index) => {
+        const reviewItem = `
+            <div class="review-item">
+                <p><strong>${review.name}:</strong> ${review.text}</p>
+                <button onclick="deleteReview('${movieTitle}', ${index})">Удалить</button>
+            </div>`;
+        modalReviews.innerHTML += reviewItem;
+    });
 }
 
+// Удаление отзыва
+function deleteReview(movieTitle, index) {
+    let reviews = JSON.parse(localStorage.getItem(movieTitle)) || [];
+    reviews.splice(index, 1);  // Удаляем отзыв по индексу
+    localStorage.setItem(movieTitle, JSON.stringify(reviews));  // Сохраняем обновлённые отзывы
 
+    loadReviews(movieTitle);  // Перезагружаем отзывы после удаления
+}
